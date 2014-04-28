@@ -1,0 +1,14 @@
+{
+    "name": "feature-demo-node-webkit",
+        "version": "0.0.0",
+        "description": "",
+
+        "dependencies": {
+            "journey": ">=0.3.0"
+        },
+        "devDependencies": {
+        },
+        "engines": {
+            "node": ">=0.8.0"
+        }
+}

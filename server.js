@@ -7,13 +7,16 @@
  * that I could use the CRUD (create/read/update/delete) methods on.
  *
  */
+
 var journey = require('journey');
 var http = require('http');
-var fs = require('fs');
 
 var mrouter = new (journey.Router)();
 
 // this is just some starting data
+var portNum = 8303;
+console.log( 'running on localhost:' + portNum );
+
 var testData = {
     "name": "Neo",
     "agents": ["Smith", "Brown", "Jones" ],
@@ -36,21 +39,21 @@ mrouter.map(function () {
         //GET request on a specific data field - /data/field
         this.get(/^\/data\/([A-Za-z0-9_]+)$/).bind(function (req, res, field) {
             console.log( "GET " + field );
-            res.send(JSON.stringify(testData[field]));
+            res.sendBody(JSON.stringify(testData[field]));
             });
 
         //POST request on a specific data field - /data/field
         this.post(/^\/data\/([A-Za-z0-9_]+)$/).bind(function (req, res, field) {
             console.log( "POST " + field );
             testData[field] = 'new value';
-            res.send(JSON.stringify(testData[field]));
+            res.sendBody(JSON.stringify(testData[field]));
             });
 
         //DELETE request on a specific data field - /data/field
         this.del(/^\/data\/([A-Za-z0-9_]+)$/).bind(function (req, res, field) {
                 console.log( "DELETE " + field );
                 testData[field] = undefined; // not sure about this
-                res.send(field + " was removed");
+                res.sendBody(field + " was removed");
                 });
 
         //POST request on a specific data field - /data/field/value
@@ -58,7 +61,7 @@ mrouter.map(function () {
                 function (req, res, field, value) {
                 console.log( "POST " + field + "=" + value );
                 testData[field] = value;
-                res.send(JSON.stringify(testData[field]));
+                res.sendBody(JSON.stringify(testData[field]));
                 });
 
         //PUT request on a specific data field - /data/field/value
@@ -66,7 +69,7 @@ mrouter.map(function () {
                 function (req, res, field, value) {
                 console.log( "PUT " + field + "=" + value );
                 testData[field] = value;
-                res.send(JSON.stringify(testData[field]));
+                res.sendBody(JSON.stringify(testData[field]));
                 });
 
 }); //end mapping
@@ -84,6 +87,6 @@ http.createServer(function (request, response) {
                 response.end(result.body);
                 });
             });
-        }).listen(8303);
+        }).listen(portNum);
 
 

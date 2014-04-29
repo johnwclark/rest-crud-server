@@ -49,6 +49,13 @@ mrouter.map(function () {
             res.sendBody(JSON.stringify(testData[field]));
             });
 
+        //PUT request on a specific data field - /data/field
+        this.put(/^\/data\/([A-Za-z0-9_]+)$/).bind(function (req, res, field) {
+            console.log( "PUT " + field );
+            testData[field] = 'new value';
+            res.sendBody(JSON.stringify(testData[field]));
+            });
+
         //DELETE request on a specific data field - /data/field
         this.del(/^\/data\/([A-Za-z0-9_]+)$/).bind(function (req, res, field) {
                 console.log( "DELETE " + field );

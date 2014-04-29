@@ -53,7 +53,7 @@ mrouter.map(function () {
         this.del(/^\/data\/([A-Za-z0-9_]+)$/).bind(function (req, res, field) {
                 console.log( "DELETE " + field );
                 testData[field] = undefined; // not sure about this
-                res.sendBody(field + " was removed");
+                res.sendBody("");
                 });
 
         //POST request on a specific data field - /data/field/value

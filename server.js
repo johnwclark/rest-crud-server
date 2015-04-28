@@ -10,14 +10,34 @@
 
 'use strict';
 
+var net = require('net');
+function getNetworkIP(callback) {
+  var socket = net.createConnection(80, 'www.google.com');
+  socket.on('connect', function() {
+    callback(undefined, socket.address().address);
+    socket.end();
+  });
+  socket.on('error', function(e) {
+    callback(e, 'error');
+  });
+}
+
+// this is just some starting data
+var portNum = 8303;
+getNetworkIP(function (error, ip) {
+    //console.log(ip);
+	console.log( 'running on ' + ip + ':' + portNum );
+
+    if (error) {
+        console.log('error:', error);
+    }
+});
+
+
 var journey = require('journey');
 var http = require('http');
 
 var mrouter = new (journey.Router)();
-
-// this is just some starting data
-var portNum = 8303;
-console.log( 'running on localhost:' + portNum );
 
 var testData = {
     'name': 'Neo',
@@ -87,15 +107,15 @@ mrouter.map(function () {
 // create the server
 // to test interactively I used http-console 
 http.createServer(function (request, response) {
-        var body = '';
-        request.addListener('data', function (chunk) { body += chunk;});
-        request.addListener('end', function () {
+		var body = '';
+		request.addListener('data', function (chunk) { body += chunk;});
+		request.addListener('end', function () {
 
-            mrouter.handle(request, body, function (result) {
-                response.writeHead(result.status, result.headers);
-                response.end(result.body);
-                });
-            });
-        }).listen(portNum);
+			mrouter.handle(request, body, function (result) {
+				response.writeHead(result.status, result.headers);
+				response.end(result.body);
+				});
+			});
+		}).listen(portNum);
 
 

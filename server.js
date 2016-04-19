@@ -1,9 +1,9 @@
 /*
  * This is a simple REST CRUD test program
- * written using node.js 
+ * written using node.js
  *
  * There is no persistence, so restarting will reset to the original data.
- * This was intentional, since the purpose was to provide a test server 
+ * This was intentional, since the purpose was to provide a test server
  * that I could use the CRUD (create/read/update/delete) methods on.
  *
  */
@@ -105,7 +105,7 @@ mrouter.map(function () {
 
 
 // create the server
-// to test interactively I used http-console 
+// to test interactively I used http-console
 http.createServer(function (request, response) {
 		var body = '';
 		request.addListener('data', function (chunk) { body += chunk;});
@@ -117,5 +117,3 @@ http.createServer(function (request, response) {
 				});
 			});
 		}).listen(portNum);
-
-

@@ -1,13 +1,10 @@
 {
-    "name": "feature-demo-node-webkit",
+    "name": "rest-crud-server",
         "version": "0.0.0",
         "description": "",
 
         "dependencies": {
             "journey": ">=0.3.0"
-        },
-        "devDependencies": {
-            "jslint": ">=0.3.0"
         },
         "engines": {
             "node": ">=0.8.0"
